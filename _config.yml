@@ -90,14 +90,13 @@ analytics:
     tracking_id          :
     anonymize_ip         : # true, false (default)
 
-
 # Site Author
 author:
   name: "Shake Van"
   avatar: # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio: "Welcome to ShakeVan's Blog"
   location: "Somewhere"
-  email:
+  email: "vsh931025@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
