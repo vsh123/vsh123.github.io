@@ -94,8 +94,8 @@ analytics:
 author:
   name: "Shake Van"
   avatar: # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio: "Welcome to ShakeVan's Blog"
-  location: "Somewhere"
+  bio: ""
+  location: "Seoul, Korea"
   email: "vsh931025@gmail.com"
   links:
     - label: "Email"
