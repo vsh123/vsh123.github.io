@@ -3,7 +3,7 @@ published: true
 layout: single
 title: "github PR(Pull Request) 일반 merge 막기"
 category: github
-tags : [github, Pull Request]
+tags : [github, Pull Request, squash merge]
 ---
 
 github을 통해 팀 프로젝트를 할 때 가장 중요한 것 중의 하나가 Pull Request(이하 PR) 과 commit관리이다.
