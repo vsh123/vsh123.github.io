@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationYamlRead {
 
 }
-```
+````
 
 - 필드 setter를 통해서 값 주입을 진행한다.
 
@@ -54,7 +54,7 @@ public class ApplicationYamlRead {
         this.name = name;
     }
 }
-```
+````
 
 - 테스트 코드를 작성한다.
 
@@ -157,7 +157,7 @@ public class YamlPropertySourceFactory implements PropertySourceFactory {
 
 ````java
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration;ß
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
