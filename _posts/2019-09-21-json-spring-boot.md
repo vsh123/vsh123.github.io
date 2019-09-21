@@ -82,7 +82,7 @@ public class GsonTest {
 
 ### 실행 결과
 
-![connect](/image/2019-09-21-spring-boot/image-1.png)
+![connect](/image/2019-09-21-json-spring-boot/image-1.png)
 
 ### 객체 -> Json으로 만들어보자
 
@@ -111,7 +111,7 @@ public class GsonTest {
 
 ### 실행 결과
 
-![connect](/image/2019-09-21-spring-boot/image-2.png)
+![connect](/image/2019-09-21-json-spring-boot/image-2.png)
 
 ## 결론
 
@@ -120,5 +120,5 @@ Gson을 이용하면서 다음과 같은 편리함이 있었다.
 - 하나의 user가 아닌 여러 명의 user정보가 배열로 날아온다해도 List 컬렉션을 가진 객체를 만들고, 해당 클래스로 매핑해주면 값이 매핑 되었다.
 - 만약 name, age중에 age없이 name만 날아온다해도 객체 매핑이 된다 -> 필드의 수가 달라도 key와 필드명만 일치하면 된다.
 
-또한 다음과 같은 궁금한 점이 생겼다.(추가 궁금 사항)
+또한 다음과 같은 궁금한 점이 생겼다.(추가 공부해야 할 사항)
 - Getter,Setter나 생성자 없이 어떻게 매핑을 하는거지..?
