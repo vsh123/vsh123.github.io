@@ -21,12 +21,10 @@ tags : [gson, json, java, gson]
 다음과 같은 Json파일과 User객체가 있다고 가정하고, json을 받아 User객체로 만들어보자
 
 ```json
-
 {
     "name":"van",
     "age":27
 }
-
 ```
 
 ```java
