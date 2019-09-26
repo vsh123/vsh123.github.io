@@ -51,3 +51,6 @@ tags : [Network, 네트워크, TCP, 3-way-handshake, Observer Pattern]
 3. 내가 확인으로 ACK를 보낸다
 4. Client Hello는 3 way handShake 이후 클라이언트가 보내는 첫 번째 메세지 이다.
 
+## 결론
+
+TCP통신에서 3way handShake가 맺어지는 과정을 확인해봤다.
