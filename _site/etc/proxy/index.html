@@ -1,0 +1,666 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>프록시 서버 - Van</title>
+<meta name="description" content="프록시">
+
+
+  <meta name="author" content="Shake Van">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Van">
+<meta property="og:title" content="프록시 서버">
+<meta property="og:url" content="http://localhost:4000/etc/proxy/">
+
+
+  <meta property="og:description" content="프록시">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-10-10T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/etc/proxy/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Van",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Van Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Van
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/" >Quick-Start Guide</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Shake Van</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/vsh123" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:vsh931025@gmail.com">
+            <meta itemprop="email" content="vsh931025@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="프록시 서버">
+    <meta itemprop="description" content="프록시">
+    <meta itemprop="datePublished" content="October 10, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">프록시 서버
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h3 id="프록시">프록시</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>프록시 : 서버와 클라이언트 사이에 중계기로서 대리로 통신을 수행하는 것
+
+프록시 서버 : 프록시 기능을 하는 서버
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>프록시 패턴 : 컴퓨터 프로그래밍에서 소프트웨어 디자인 패턴의 하나</p>
+  </li>
+  <li>
+    <p>프록시 서버 : 클라이언트가 자신을 통해서 다른 네트워크 서비스에 간접적으로 접속할 수 있게 해 주는 컴퓨터나 응용 프로그램</p>
+  </li>
+  <li>
+    <p>공개 프록시 : 누구나 자유롭게 접속하여 사용할 수 있는 프록시 서버</p>
+  </li>
+  <li>
+    <p>리버스 프록시 : 컴퓨터 네트워크에서 클라이언트를 대신해서 한 대 이상의 서버로부터 자원을 추출하는 <code class="highlighter-rouge">프록시 서버</code></p>
+  </li>
+</ul>
+
+<h3 id="프록시-서버의-특징">프록시 서버의 특징</h3>
+
+<h4 id="보안">보안</h4>
+
+<ul>
+  <li>외부에서 내부 네트워크에 대한 직접적인 액세스를 차단</li>
+  <li>내부 -&gt; 외부로 나가는 모든 네트워크는 프록시 서버를 거치게 되며 이를 이용해 유해 사이트 등을 차단할 수 있다.</li>
+</ul>
+
+<h4 id="속도">속도</h4>
+
+<ul>
+  <li>캐싱을 통한 속도 향상</li>
+</ul>
+
+<h4 id="서버-우회">서버 우회</h4>
+
+<ul>
+  <li>내부 네트워크의 주소가 아닌 프록시 서버의 주소를 타기 때문에 우회가 가능</li>
+</ul>
+
+<h4 id="일부-프록시-서버는-캐시를-이용해-요청된-정보들을-저장할-수-있다">일부 프록시 서버는 캐시를 이용해 요청된 정보들을 저장할 수 있다</h4>
+
+<ul>
+  <li>이렇게 캐시를 해두고 난 후에, 캐시 안에 있는 정보를 요구하는 요청에 대해서는 외부 요청없이 해당 값을 리턴 한다.
+    <ul>
+      <li>외부와의 연결을 하지 않아도 된다는 장점</li>
+      <li>외부와의 트랙픽을 줄일 수 있다 -&gt; 네트워크 병목 현상을 방지</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="외부-인터넷에서는-client의-정보를-알-수-없다">외부 인터넷에서는 Client의 정보를 알 수 없다.</h4>
+
+<ul>
+  <li>프록시 서버가 대신해서 요청해주기 때문에 외부에서는 프록시 서버의 정보가 나타나게 된다.</li>
+</ul>
+
+<h3 id="foward-proxy-vs-reverse-proxy">Foward Proxy vs Reverse Proxy</h3>
+
+<h4 id="포워드-프록시">포워드 프록시</h4>
+
+<ul>
+  <li>Anonymity</li>
+  <li>Caching</li>
+  <li>Blocking unwanted sites</li>
+</ul>
+
+<h4 id="리버스-프록시">리버스 프록시</h4>
+
+<ul>
+  <li>Load Balancing(로드 밸런싱)</li>
+  <li>Caching</li>
+  <li>Isolating internal traffic</li>
+  <li>Logging</li>
+  <li>Canary Deployment</li>
+</ul>
+
+<p>Q. 프록시 서버와 방화벽의 차이점?</p>
+
+<p>A. 프록시와 방화벽 모두 특정 사이트의 접근을 막을 수 있지만, 방화벽은 본질적으로 차단 vs 프록시 서버는 웹사이트에 액세스 할 수 없는 경우 리다이렉션을하는 내부 매커니즘을 보유하고 있다. 또한 프록시와 방화벽의 큰 차이점은 외부에서 내부 네트워크 주소를 알 수 없다라는 점이다.</p>
+
+<p>Q. 프록시 서버와 라우터의 차이</p>
+
+<p>A. 작동되는 계층의 차이?</p>
+
+<p>출처 : https://ko.wikipedia.org/wiki/프록시
+https://www.quora.com/What-is-the-difference-between-a-forward-proxy-and-a-router
+https://yourbusiness.azcentral.com/difference-between-firewall-proxy-server-20024.html</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#proxy-server" class="page__taxonomy-item" rel="tag">proxy server</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#proxy" class="page__taxonomy-item" rel="tag">proxy</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%ED%94%84%EB%A1%9D%EC%8B%9C-%EC%84%9C%EB%B2%84" class="page__taxonomy-item" rel="tag">프록시 서버</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%ED%94%84%EB%A1%9D%EC%8B%9C" class="page__taxonomy-item" rel="tag">프록시</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#etc" class="page__taxonomy-item" rel="tag">etc</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-10-10T00:00:00+09:00">October 10, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%ED%94%84%EB%A1%9D%EC%8B%9C+%EC%84%9C%EB%B2%84%20http%3A%2F%2Flocalhost%3A4000%2Fetc%2Fproxy%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fetc%2Fproxy%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fetc%2Fproxy%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%ED%9A%8C%EA%B3%A0/remind-5/" class="pagination--pager" title="5주 회고
+">Previous</a>
+    
+    
+      <a href="/%ED%9A%8C%EA%B3%A0/remind-6/" class="pagination--pager" title="6주 회고
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/web/github-oauth/" rel="permalink">github oauth 동작 원리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">github OAuth2 동작 방식
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-9/" rel="permalink">9주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 21일(월) ~ 2019년 11월 03일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-7/" rel="permalink">7주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 14일(월) ~ 2019년 10월 20일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/design%20pattern/decorate-pattern/" rel="permalink">데코레이터 패턴
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">데코레이터 패턴?
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Van. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

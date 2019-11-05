@@ -1,0 +1,903 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>스트래티지 패턴(Strategy Pattern)  - Van</title>
+<meta name="description" content="스트래티지 패턴(Strategy Pattern)">
+
+
+  <meta name="author" content="Shake Van">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Van">
+<meta property="og:title" content="스트래티지 패턴(Strategy Pattern)">
+<meta property="og:url" content="http://localhost:4000/design%20pattern/strategy-pattern/">
+
+
+  <meta property="og:description" content="스트래티지 패턴(Strategy Pattern)">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-09-16T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/design%20pattern/strategy-pattern/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Van",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Van Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Van
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/" >Quick-Start Guide</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Shake Van</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/vsh123" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:vsh931025@gmail.com">
+            <meta itemprop="email" content="vsh931025@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="스트래티지 패턴(Strategy Pattern)">
+    <meta itemprop="description" content="스트래티지 패턴(Strategy Pattern)">
+    <meta itemprop="datePublished" content="September 16, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">스트래티지 패턴(Strategy Pattern)
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="스트래티지-패턴strategy-pattern">스트래티지 패턴(Strategy Pattern)</h2>
+
+<blockquote>
+  <p>스트래티지 패턴에서는 알고리즘군을 정의하고 각각을 캡슐화하여 교환해서 사용할 수 있도록 만든다. 스트래티지를 활용하면 알고리즘을 사용하는 클라이언트와는 독립적으로 알고리즘을 변경할 수 있다.</p>
+</blockquote>
+
+<h2 id="스트래티지-패턴-예시">스트래티지 패턴 예시</h2>
+
+<blockquote>
+  <p>예시는 HeadFirst DesignPattern에서 가져왔습니다.</p>
+</blockquote>
+
+<h3 id="상황">상황</h3>
+
+<p>다음과 같이 Duck 슈퍼클래스를 상속 받은 세 가지 종류의 오리 클래스가 존재합니다.</p>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-1.png" alt="connect" /></p>
+
+<blockquote>
+  <p>모든 오리들은 꽥꽥소리를 내며, 물 위에 뜰 수 있습니다.</p>
+</blockquote>
+
+<p>이 때 오리들이 날 수 있게 하고 싶어 다음과 같이 Duck클래스에 fly()라는 메소드를 추가하였습니다.</p>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-2.png" alt="connect" /></p>
+
+<blockquote>
+  <p>이제 모든 오리들은 fly할 수 있네요!</p>
+</blockquote>
+
+<p>하지만 구현을 하고 나니 다음과 같은 문제점들이 발생하였습니다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 장난감 오리는 꽥꽥이 아닌 삑삑 소리를 내야합니다.
+2. 장난감 오리는 날 수 없습니다.
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">quack(), fly()를 오버라이드하면 되는 거 아니야?</code>라고 생각할 수 있습니다. 하지만 저런 클래스가 수십, 수백개라면? 모든 클래스마다 재정의 하는 것은 쉬운 일이 아닐 것이며, 조그마한 변경이 발생한다면(메서드 명이라도 변경된다면) 작업 비용은 어마어마해질 것입니다.</p>
+
+<p>이에 이를 해결하기 위해 아래와 같은 디자인 원칙들을 순차적으로 적용해 보려 합니다.</p>
+
+<h3 id="적용">적용</h3>
+
+<ul>
+  <li>애플리케이션에서 달라지는 부분을 찾아내고, 달라지지 않는 부분으로부터 분리시킨다. -&gt; 바뀌는 부분은 따로 뽑아서 캡슐화시킨다.</li>
+</ul>
+
+<p>Duck 클래스에서 변경되는 부분과 그렇지 않은 부분을 분리해보면 다음과 같이 나눌 수 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">변경되는 부분</th>
+      <th style="text-align: center">그렇지 않은 부분</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">fly()</td>
+      <td style="text-align: center">swim()</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">quack()</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>display()의 경우 abstract method라 제외하였습니다.</p>
+</blockquote>
+
+<ul>
+  <li>구현이 아닌 인터페이스에 맞춰서 프로그래밍한다.</li>
+</ul>
+
+<p>fly()와 quack()을 각각 인터페이스로 포현하고, 각각의 행동을 구현 해보겠습니다.</p>
+
+<h4 id="fly">fly</h4>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-3.png" alt="connect" /></p>
+
+<h4 id="quack">quack</h4>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-4.png" alt="connect" /></p>
+
+<blockquote>
+  <p>하위 클래스들은 상위 인터페이스의 fly(), quack()을 구현하였습니다.</p>
+</blockquote>
+
+<ul>
+  <li>이제 Duck클래스를 아래와 같이 변경해보겠습니다.</li>
+</ul>
+
+<h4 id="기존-duck클래스">기존 Duck클래스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">quack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"꽥꽥"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swim</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"어푸어푸어푸"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나는 날고 있어요~"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="변경된-duck클래스">변경된 Duck클래스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">van.strategypattern.fly.FlyBehavior</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.QuackBehavior</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="c1">//fly, quack 행동 인터페이스를 인스턴스 변수로 가진다.</span>
+    <span class="nc">QuackBehavior</span> <span class="n">quackBeHavior</span><span class="o">;</span>
+    <span class="nc">FlyBehavior</span> <span class="n">flyBehavior</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">perfomrQuack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//QuackBeHavior에 정의한 quack() 메서드</span>
+        <span class="n">quackBeHavior</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swim</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"어푸어푸어푸"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performFly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//FlyBehavior에 정의한 fly() 메서드</span>
+        <span class="n">flyBehavior</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>그리고 Duck의 하위 클래스들을 다음과 같이 변경합니다.</p>
+
+<h4 id="mallardduck-변경-전">MallardDuck 변경 전</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나는야 청둥 오리"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="mallardduck-변경-후">MallardDuck 변경 후</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">van.strategypattern.fly.FlyWithWings</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.Quack</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MallardDuck</span> <span class="kd">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="c1">//아래와 같이 기본 생성시 Duck에서 가지고 있는 인스턴스 변수에 대한 구현체를 정의해줍니다.</span>
+    <span class="kd">public</span> <span class="nf">MallardDuck</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">quackBeHavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Quack</span><span class="o">();</span> <span class="c1">//청둥 오리는 꽥꽥이니까 Quack클래스로 정의</span>
+        <span class="n">flyBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FlyWithWings</span><span class="o">();</span> <span class="c1">//날개로 날 수 있습니다.</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나는야 청둥 오리"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="redheadduck-변경-후">RedheadDuck 변경 후</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">van.strategypattern.fly.FlyWithWings</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.Quack</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RedheadDuck</span> <span class="kd">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">RedheadDuck</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">quackBeHavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Quack</span><span class="o">();</span> <span class="c1">//꽥꽥</span>
+        <span class="n">flyBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FlyWithWings</span><span class="o">();</span> <span class="c1">//날개로 날 수 있습니다.</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나는야 빨간 머리 오리"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="toyduck-변경-후">ToyDuck 변경 후</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">van.strategypattern.fly.NoFly</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.Squeak</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ToyDuck</span> <span class="kd">extends</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ToyDuck</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">quackBeHavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Squeak</span><span class="o">();</span> <span class="c1">//삑삑!</span>
+        <span class="n">flyBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NoFly</span><span class="o">();</span> <span class="c1">//날 수 없습니다.</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나는야 장난감 오리"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="변경-완료-후-duck-구성">변경 완료 후 Duck 구성</h4>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-5.png" alt="connect" /></p>
+
+<blockquote>
+  <p>Duck 클래스에서 fly, quack 인터페이스를 상속 받을 수도 있지만, 구현체를 받아 행동을 부여받게 됩니다. 이렇게 했을 경우 상속보다 유연성을 크게 향상시킬 수 있습니다.</p>
+</blockquote>
+
+<p>여기까지 변화할 수 있는 행동들을 인터페이스로 빼고, Duck에 적용 시켰습니다. 하지만 여기서 한가지 더 생각해볼 거리가 남아있습니다.</p>
+
+<blockquote>
+  <p>만약 장난감이 업그레이드 돼서 날 수 있다면?</p>
+</blockquote>
+
+<p>이를 위해 동적으로 행동을 변경할 수 있는 setter를 구현해 보겠습니다.</p>
+
+<h4 id="duck에-setflyhabevior-setquackhavior-구현">Duck에 setFlyHabevior(), setQuackHavior() 구현</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">van.strategypattern.fly.FlyBehavior</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.QuackBehavior</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="o">{</span>
+    <span class="c1">//fly, quack 행동 인터페이스를 인스턴스 변수로 가진다.</span>
+    <span class="nc">QuackBehavior</span> <span class="n">quackBeHavior</span><span class="o">;</span>
+    <span class="nc">FlyBehavior</span> <span class="n">flyBehavior</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">perfomrQuack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//QuackBeHavior에 정의한 quack() 메서드</span>
+        <span class="n">quackBeHavior</span><span class="o">.</span><span class="na">quack</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">swim</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"어푸어푸어푸"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">performFly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//FlyBehavior에 정의한 fly() 메서드</span>
+        <span class="n">flyBehavior</span><span class="o">.</span><span class="na">fly</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//setter를 이용해 변경이 가능합니다.</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setQuackBeHavior</span><span class="o">(</span><span class="nc">QuackBehavior</span> <span class="n">quackBeHavior</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">quackBeHavior</span> <span class="o">=</span> <span class="n">quackBeHavior</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setFlyBehavior</span><span class="o">(</span><span class="nc">FlyBehavior</span> <span class="n">flyBehavior</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">flyBehavior</span> <span class="o">=</span> <span class="n">flyBehavior</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="테스트-코드-작성">테스트 코드 작성</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.fly.NoFly</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">van.strategypattern.quack.Squeak</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">MallardDuckTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="err">오리</span><span class="n">_</span><span class="err">테스트</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Duck</span> <span class="n">mallardDuck</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MallardDuck</span><span class="o">();</span>
+
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">perfomrQuack</span><span class="o">();</span>
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">performFly</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"---------------------------------"</span><span class="o">);</span>
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">setFlyBehavior</span><span class="o">(</span><span class="k">new</span> <span class="nc">NoFly</span><span class="o">());</span> <span class="c1">//못 나는 것으로 변경</span>
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">setQuackBeHavior</span><span class="o">(</span><span class="k">new</span> <span class="nc">Squeak</span><span class="o">());</span> <span class="c1">//삑삑으로 변경</span>
+
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">perfomrQuack</span><span class="o">();</span>
+        <span class="n">mallardDuck</span><span class="o">.</span><span class="na">performFly</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="실행-결과">실행 결과</h3>
+
+<p><img src="/image/2019-09-16-strategy-pattern/image-6.png" alt="connect" /></p>
+
+<h3 id="결론">결론</h3>
+
+<p>이처럼 행동들을 별도 정의하고 캡슐화하고, 교환하여 사용할 수 있도록 만드는 것을 Strategy Pattern이라고 정의합니다. 이 패턴을 이용하면 행동들에 변경이 생겼을 경우에도 이를 사용하는 클래스의 변경사항은 작아지는 이점을 가질 수 있습니다.</p>
+
+<h3 id="예시-문제">예시 문제</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>선호는 퇴직금으로 카페를 오픈하였다.
+
+현재 카페는 다음과 같은 메뉴들이 있으며 가격은 다음과 같다
+
+1. 아메리카노 - 2000원
+2. 아이스티 - 1500원
+
+하지만 장사가 너무 안된 나머지 할인을 하여 고객을 홍보하려고 한다.
+
+각 요일에 따른 할인율은 다음과 같다
+평일 : 20%
+주말 : 10%
+
+이 때 요일에 맞는 할인율을 가져와서 금액을 계산해주는 코드을 구현해라
+
+주어지는 인터페이스는 다음과 같다
+
+Discount
+- 할인율을 반환해주는 
+    int getdiscountRate()
+가 있다
+
+Cafe
+- Discount인터페이스를 인자로 받는 
+    int priceOfAmericano(Discount discount);
+    int priceOfIceTea(Discount discount);
+가 존재한다
+
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#design-pattern" class="page__taxonomy-item" rel="tag">Design Pattern</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#head-first-design-pattern" class="page__taxonomy-item" rel="tag">Head First Design Pattern</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#strategy-pattern" class="page__taxonomy-item" rel="tag">Strategy Pattern</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4" class="page__taxonomy-item" rel="tag">디자인 패턴</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%EC%8A%A4%ED%8A%B8%EB%9E%98%ED%8B%B0%EC%A7%80-%ED%8C%A8%ED%84%B4" class="page__taxonomy-item" rel="tag">스트래티지 패턴</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#design-pattern" class="page__taxonomy-item" rel="tag">Design Pattern</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-09-16T00:00:00+09:00">September 16, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%8A%A4%ED%8A%B8%EB%9E%98%ED%8B%B0%EC%A7%80+%ED%8C%A8%ED%84%B4%28Strategy+Pattern%29+%20http%3A%2F%2Flocalhost%3A4000%2Fdesign%2520pattern%2Fstrategy-pattern%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fdesign%2520pattern%2Fstrategy-pattern%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fdesign%2520pattern%2Fstrategy-pattern%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%ED%9A%8C%EA%B3%A0/remind-2/" class="pagination--pager" title="2주 회고
+">Previous</a>
+    
+    
+      <a href="/os/thread-pool/" class="pagination--pager" title="자바의 쓰레드 풀(ThreadPoolExecutor)의 동작 원리
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/web/github-oauth/" rel="permalink">github oauth 동작 원리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">github OAuth2 동작 방식
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-9/" rel="permalink">9주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 21일(월) ~ 2019년 11월 03일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-7/" rel="permalink">7주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 14일(월) ~ 2019년 10월 20일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/design%20pattern/decorate-pattern/" rel="permalink">데코레이터 패턴
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">데코레이터 패턴?
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Van. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

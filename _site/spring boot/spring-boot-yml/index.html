@@ -1,0 +1,803 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.6 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>spring boot yml에 있는 상수 값 불러오기 - Van</title>
+<meta name="description" content="상수 값들을 yml파일로 관리하고 싶을 때?  다음과 같이 두 가지 방법으로 진행이 가능하다.">
+
+
+  <meta name="author" content="Shake Van">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Van">
+<meta property="og:title" content="spring boot yml에 있는 상수 값 불러오기">
+<meta property="og:url" content="http://localhost:4000/spring%20boot/spring-boot-yml/">
+
+
+  <meta property="og:description" content="상수 값들을 yml파일로 관리하고 싶을 때?  다음과 같이 두 가지 방법으로 진행이 가능하다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-09-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring%20boot/spring-boot-yml/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Van",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Van Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Van
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/" >Quick-Start Guide</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Shake Van</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/vsh123" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:vsh931025@gmail.com">
+            <meta itemprop="email" content="vsh931025@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="spring boot yml에 있는 상수 값 불러오기">
+    <meta itemprop="description" content="상수 값들을 yml파일로 관리하고 싶을 때?  다음과 같이 두 가지 방법으로 진행이 가능하다.">
+    <meta itemprop="datePublished" content="September 14, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">spring boot yml에 있는 상수 값 불러오기
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="상수-값들을-yml파일로-관리하고-싶을-때">상수 값들을 yml파일로 관리하고 싶을 때?</h2>
+<blockquote>
+  <p>다음과 같이 두 가지 방법으로 진행이 가능하다.</p>
+</blockquote>
+
+<ol>
+  <li>application.yml파일에 설정</li>
+  <li>별도 이름.yml에 설정</li>
+</ol>
+
+<h3 id="첫번째-방법applicationyml파일에-설정">[첫번째 방법]application.yml파일에 설정</h3>
+
+<ul>
+  <li>다음과 같이 application.yml에 van.name의 값을 기록한다.</li>
+</ul>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">van</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">van</span>
+</code></pre></div></div>
+
+<ul>
+  <li>class파일을 생성후 다음과 같이 <code class="highlighter-rouge">Configuration</code>,<code class="highlighter-rouge">ConfigurationProperties</code> 어노테이션을 추가한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"van"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationYamlRead</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>필드 setter를 통해서 값 주입을 진행한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"van"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationYamlRead</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//application.yml의 van.name을 set해준다.</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>테스트 코드를 작성한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">ApplicationYamlReadTest</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">ApplicationYamlRead</span> <span class="n">applicationYamlRead</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">yamlFileTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">applicationYamlRead</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"My name is "</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"van"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="실행-결과">실행 결과</h3>
+<p><img src="/image/yml_name.png" alt="connect" /></p>
+
+<h3 id="두번째-방법-별도-yml파일에-저장">[두번째 방법] 별도 yml파일에 저장</h3>
+
+<ul>
+  <li>van.yml에 다음과 같이 my.age를 저장한다</li>
+</ul>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">my</span><span class="pi">:</span>
+  <span class="na">age</span><span class="pi">:</span> <span class="m">300</span>
+</code></pre></div></div>
+
+<ul>
+  <li>class파일을 생성후 다음과 같이 <code class="highlighter-rouge">Configuration</code>, <code class="highlighter-rouge">PropertySource</code>, <code class="highlighter-rouge">ConfigurationProperties</code> 어노테이션을 추가한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.PropertySource</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="c1">//value를 통해 값이 있는 위치를 명시해준다.</span>
+<span class="nd">@PropertySource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"classpath:van.yml"</span><span class="o">)</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"upload"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VanYamlRead</span> <span class="o">{</span>
+    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>[중요!] PropertySource에 yml을 read할 수 있는 factory가 없기 때문에 임의로 생성을 해주어야 한다!</p>
+</blockquote>
+
+<ul>
+  <li>다음과 같이 YamlPropertySourceFactory.class을 생성해준다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.springframework.beans.factory.config.YamlPropertiesFactoryBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.env.PropertiesPropertySource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.env.PropertySource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.io.support.EncodedResource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.io.support.PropertySourceFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.lang.Nullable</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+
+<span class="c1">//PropertySourceFactory를 상속받아 구현한다.</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">YamlPropertySourceFactory</span> <span class="kd">implements</span> <span class="nc">PropertySourceFactory</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">PropertySource</span><span class="o">&lt;?&gt;</span> <span class="n">createPropertySource</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">EncodedResource</span> <span class="n">resource</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">Properties</span> <span class="n">propertiesFromYaml</span> <span class="o">=</span> <span class="n">loadYamlIntoProperties</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">sourceName</span> <span class="o">=</span> <span class="n">name</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">name</span> <span class="o">:</span> <span class="n">resource</span><span class="o">.</span><span class="na">getResource</span><span class="o">().</span><span class="na">getFilename</span><span class="o">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PropertiesPropertySource</span><span class="o">(</span><span class="n">sourceName</span><span class="o">,</span> <span class="n">propertiesFromYaml</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">Properties</span> <span class="nf">loadYamlIntoProperties</span><span class="o">(</span><span class="nc">EncodedResource</span> <span class="n">resource</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">FileNotFoundException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">YamlPropertiesFactoryBean</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">YamlPropertiesFactoryBean</span><span class="o">();</span>
+            <span class="n">factory</span><span class="o">.</span><span class="na">setResources</span><span class="o">(</span><span class="n">resource</span><span class="o">.</span><span class="na">getResource</span><span class="o">());</span>
+            <span class="n">factory</span><span class="o">.</span><span class="na">afterPropertiesSet</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="na">getObject</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IllegalStateException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// for ignoreResourceNotFound</span>
+            <span class="nc">Throwable</span> <span class="n">cause</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cause</span> <span class="k">instanceof</span> <span class="nc">FileNotFoundException</span><span class="o">)</span>
+                <span class="k">throw</span> <span class="o">(</span><span class="nc">FileNotFoundException</span><span class="o">)</span> <span class="n">e</span><span class="o">.</span><span class="na">getCause</span><span class="o">();</span>
+            <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>PropertySource의 factory설정을 통해 YamlPropertySourceFactory.class를 명시해준다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span><span class="err">ß</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.PropertySource</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@PropertySource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"classpath:van.yml"</span><span class="o">,</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">YamlPropertySourceFactory</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"my"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VanYamlRead</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>setter를 통해 값 주입을 진행한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.PropertySource</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@PropertySource</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"classpath:van.yml"</span><span class="o">,</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">YamlPropertySourceFactory</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"my"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VanYamlRead</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="nc">String</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>테스트 코드를 작성한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">VanYamlReadTest</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">VanYamlRead</span> <span class="n">vanYamlRead</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">name</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">age</span> <span class="o">=</span> <span class="n">vanYamlRead</span><span class="o">.</span><span class="na">getAge</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"My age is "</span> <span class="o">+</span> <span class="n">age</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">age</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"300"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="실행-결과-1">실행 결과</h3>
+<p><img src="/image/yml_age.png" alt="connect" /></p>
+
+<h2 id="정리">정리</h2>
+
+<ul>
+  <li>상수 값들은 application.yml이 아닌 별도 yml파일에 정리하는 것이 나중에 확인이 더 쉽다고 생각은 한다. 하지만 YamlFactory를 직접적으로 생성해 주어야 한다는 점은 불편한 점이다.
+만약 application.yml이 아닌 다른 파일로 관리를 하게되다면 .properties파일을 사용하지 않을까 싶다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#property" class="page__taxonomy-item" rel="tag">property</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring-boot" class="page__taxonomy-item" rel="tag">spring boot</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#yml" class="page__taxonomy-item" rel="tag">yml</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#spring-boot" class="page__taxonomy-item" rel="tag">spring boot</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-09-14T00:00:00+09:00">September 14, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=spring+boot+yml%EC%97%90+%EC%9E%88%EB%8A%94+%EC%83%81%EC%88%98+%EA%B0%92+%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2520boot%2Fspring-boot-yml%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2520boot%2Fspring-boot-yml%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2520boot%2Fspring-boot-yml%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/DI/" class="pagination--pager" title="두개 이상의 구현체가 있는 인터페이스 의존성 주입(DI)
+">Previous</a>
+    
+    
+      <a href="/%ED%9A%8C%EA%B3%A0/remind-2/" class="pagination--pager" title="2주 회고
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/web/github-oauth/" rel="permalink">github oauth 동작 원리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">github OAuth2 동작 방식
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-9/" rel="permalink">9주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 21일(월) ~ 2019년 11월 03일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%ED%9A%8C%EA%B3%A0/remind-7/" rel="permalink">7주 회고
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  기간 : 2019년 10월 14일(월) ~ 2019년 10월 20일(일)
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/design%20pattern/decorate-pattern/" rel="permalink">데코레이터 패턴
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">데코레이터 패턴?
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Van. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
