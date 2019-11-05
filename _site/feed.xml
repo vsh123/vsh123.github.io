@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-05T14:17:10+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-05T21:38:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/1.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
@@ -6,14 +6,9 @@
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/2.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;사용자가 어플리케이션의 특정 URL로 접속한다. (/login)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;(1) 사용자가 어플리케이션의 특정 URL로 접속한다. (/login)&lt;/p&gt;
+
+&lt;p&gt;(2) 어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다.&lt;/p&gt;
 
 &lt;p&gt;(https://github.com/login/oauth/authorize?client_id=‘&lt;strong&gt;client가 사전에 받은 id&lt;/strong&gt;’)&lt;/p&gt;
 
@@ -21,14 +16,9 @@
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/3.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;사용자가 2번의 url로 이동하여 권한 허가를 한다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Github에서는 code와 함께 사용자에게 redirectURL을 전달한다&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;(3) 사용자가 2번의 url로 이동하여 권한 허가를 한다&lt;/p&gt;
+
+&lt;p&gt;(4) Github에서는 code와 함께 사용자에게 redirectURL을 전달한다&lt;/p&gt;
 
 &lt;p&gt;(여기서 redirectURL은 client가 사전에 등록한 url이다)&lt;/p&gt;
 
@@ -38,22 +28,15 @@
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/5.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;사용자는 4번의 redirectURL로 code와 함께 어플리케이션에 전달한다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;어플리케이션은 &lt;strong&gt;사용자에게 받은 code, 본인의 client_id, client_secret&lt;/strong&gt;과 함께 github으로 access_token 발급 요청을 한다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;(5) 사용자는 4번의 redirectURL로 code와 함께 어플리케이션에 전달한다.&lt;/p&gt;
+
+&lt;p&gt;(6) 어플리케이션은 &lt;strong&gt;사용자에게 받은 code, 본인의 client_id, client_secret&lt;/strong&gt;과 함께 github으로 access_token 발급 요청을 한다.&lt;/p&gt;
 
 &lt;p&gt;(POST https://github.com/login/oauth/access_token)&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Github은 어플리케이션에게 사용자의 access_token, token_type을 리턴한다&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;(7) Github은 어플리케이션에게 사용자의 access_token, token_type을 리턴한다&lt;/p&gt;
 
-&lt;p&gt;8,9 : 이후 access_token을 통해 왔다리 갔다리 한다.&lt;/p&gt;
+&lt;p&gt;(8,9) : 이후 access_token을 통해 왔다리 갔다리 한다.&lt;/p&gt;
 
 &lt;p&gt;Github은 refresh_token이 별도로 존재하지 않고 access_token이 지속 유지되나봄?&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Web" /><category term="web" /><category term="oauth" /><category term="github" /><summary type="html">github OAuth2 동작 방식</summary></entry><entry><title type="html">9주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-9/" rel="alternate" type="text/html" title="9주 회고" /><published>2019-11-03T00:00:00+09:00</published><updated>2019-11-03T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-9</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-9/">&lt;blockquote&gt;
   &lt;p&gt;기간 : 2019년 10월 21일(월) ~ 2019년 11월 03일(일)&lt;/p&gt;

@@ -135,7 +135,7 @@ var store = [{
         "url": "http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-9/",
         "teaser":null},{
         "title": "github oauth 동작 원리",
-        "excerpt":"github OAuth2 동작 방식 1 ~ 2번 과정 사용자가 어플리케이션의 특정 URL로 접속한다. (/login) 어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다. (https://github.com/login/oauth/authorize?client_id=‘client가 사전에 받은 id’) 3 ~ 4번 과정 사용자가 2번의 url로 이동하여 권한 허가를 한다 Github에서는 code와 함께 사용자에게 redirectURL을 전달한다 (여기서 redirectURL은 client가 사전에 등록한 url이다) 5번 이후 과정...","categories": ["Web"],
+        "excerpt":"github OAuth2 동작 방식 1 ~ 2번 과정 (1) 사용자가 어플리케이션의 특정 URL로 접속한다. (/login) (2) 어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다. (https://github.com/login/oauth/authorize?client_id=‘client가 사전에 받은 id’) 3 ~ 4번 과정 (3) 사용자가 2번의 url로 이동하여 권한 허가를 한다 (4) Github에서는 code와 함께 사용자에게 redirectURL을 전달한다 (여기서 redirectURL은 client가 사전에 등록한...","categories": ["Web"],
         "tags": ["web","oauth","github"],
         "url": "http://localhost:4000/web/github-oauth/",
         "teaser":null}]
