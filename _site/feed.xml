@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-05T21:38:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-07T20:27:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/1.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
@@ -192,13 +192,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;클래스는 확장에 대해서는 열려 있어야 하지만 코드 변경에 대해서는 닫혀 있어야 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Q. 구상요소 없이 데코레이터가 될 수도 있지 않을까?&lt;/p&gt;
-
-&lt;p&gt;Q. 옵션List를 만들고 이곳에 add하면 어떨까? (이게 전략패턴이 되는 건가?)&lt;/p&gt;
-
-&lt;p&gt;Q. 상속보다 구성?&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Design Pattern" /><category term="디자인 패턴" /><category term="Design Pattern" /><category term="Head First Design Pattern" /><category term="데코레이터 패턴" /><category term="Decorator Pattern" /><summary type="html">데코레이터 패턴?</summary></entry><entry><title type="html">RequestParam vs ModelAttribute vs RequestBody</title><link href="http://localhost:4000/spring/spring-boot-parameter-type/" rel="alternate" type="text/html" title="RequestParam vs ModelAttribute vs RequestBody" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/spring/spring-boot-parameter-type</id><content type="html" xml:base="http://localhost:4000/spring/spring-boot-parameter-type/">&lt;h2 id=&quot;requestparam-vs-modelattribute-vs-requestbody-어노테이션의-차이는-무엇일까&quot;&gt;RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Design Pattern" /><category term="디자인 패턴" /><category term="Design Pattern" /><category term="Head First Design Pattern" /><category term="데코레이터 패턴" /><category term="Decorator Pattern" /><summary type="html">데코레이터 패턴?</summary></entry><entry><title type="html">RequestParam vs ModelAttribute vs RequestBody</title><link href="http://localhost:4000/spring/spring-boot-parameter-type/" rel="alternate" type="text/html" title="RequestParam vs ModelAttribute vs RequestBody" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/spring/spring-boot-parameter-type</id><content type="html" xml:base="http://localhost:4000/spring/spring-boot-parameter-type/">&lt;h2 id=&quot;requestparam-vs-modelattribute-vs-requestbody-어노테이션의-차이는-무엇일까&quot;&gt;RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;스프링 mvc를 구현해보려 하니 위 3개 어노테이션에 대해 혼란이 와서 정리를 해보려고 한다.&lt;/p&gt;
@@ -341,12 +335,15 @@
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Q. RequestBody는 APPLICATION_FORM_URLENCODED타입을 인식하지 못해요
 
-&lt;p&gt;Q. RequestBody는 APPLICATION_FORM_URLENCODED타입을 인식하지 못해요
-A. Spring에서는 APPLICATION_FORM_URLENCODED를 RequestBody로 인식하지 못한다고 합니다. 그 대신, @ModelAttribute를 사용하거나 어노테이션을 제거하면 정상적으로 매핑이 가능합니다.&lt;/p&gt;
+A. Spring에서는 APPLICATION_FORM_URLENCODED를 RequestBody로 인식하지 못한다고 합니다. 그 대신, @ModelAttribute를 사용하거나 어노테이션을 제거하면 정상적으로 매핑이 가능합니다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Q. RequestParam과 ModelAttribute 어노테이션 없이 어떻게 매핑을 해주는 건가요?
-A. String, int, long 등의 단순한 primitive 타입이라면 RequestParam, 그게 아니라 모델인 경우에는 ModelAttribute로 판단한다고 합니다.&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Spring" /><category term="Spring" /><category term="Controller" /><summary type="html">RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?</summary></entry><entry><title type="html">6주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/" rel="alternate" type="text/html" title="6주 회고" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/">&lt;blockquote&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Q. RequestParam과 ModelAttribute 어노테이션 없이 어떻게 매핑을 해주는 건가요?
+
+A. String, int, long 등의 단순한 primitive 타입이라면 RequestParam, 그게 아니라 모델인 경우에는 ModelAttribute로 판단한다고 합니다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Spring" /><category term="Spring" /><category term="Controller" /><summary type="html">RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?</summary></entry><entry><title type="html">6주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/" rel="alternate" type="text/html" title="6주 회고" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/">&lt;blockquote&gt;
   &lt;p&gt;기간 : 2019년 10월 07일(월) ~ 2019년 10월 13일(일)&lt;/p&gt;
 &lt;/blockquote&gt;
 

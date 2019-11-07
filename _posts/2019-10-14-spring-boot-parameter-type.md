@@ -154,9 +154,14 @@ http body를 객체로 매핑해주는 어노테이션이다.
         return user;
     }
 ```
-
+```
 Q. RequestBody는 APPLICATION_FORM_URLENCODED타입을 인식하지 못해요
-A. Spring에서는 APPLICATION_FORM_URLENCODED를 RequestBody로 인식하지 못한다고 합니다. 그 대신, @ModelAttribute를 사용하거나 어노테이션을 제거하면 정상적으로 매핑이 가능합니다.
 
+A. Spring에서는 APPLICATION_FORM_URLENCODED를 RequestBody로 인식하지 못한다고 합니다. 그 대신, @ModelAttribute를 사용하거나 어노테이션을 제거하면 정상적으로 매핑이 가능합니다.
+```
+
+```
 Q. RequestParam과 ModelAttribute 어노테이션 없이 어떻게 매핑을 해주는 건가요?
+
 A. String, int, long 등의 단순한 primitive 타입이라면 RequestParam, 그게 아니라 모델인 경우에는 ModelAttribute로 판단한다고 합니다.
+```
