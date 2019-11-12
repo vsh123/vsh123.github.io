@@ -138,4 +138,9 @@ var store = [{
         "excerpt":"github OAuth2 동작 방식 1 ~ 2번 과정 (1) 사용자가 어플리케이션의 특정 URL로 접속한다. (/login) (2) 어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다. (https://github.com/login/oauth/authorize?client_id=‘client가 사전에 받은 id’) 3 ~ 4번 과정 (3) 사용자가 2번의 url로 이동하여 권한 허가를 한다 (4) Github에서는 code와 함께 사용자에게 redirectURL을 전달한다 (여기서 redirectURL은 client가 사전에 등록한...","categories": ["Web"],
         "tags": ["web","oauth","github"],
         "url": "http://localhost:4000/web/github-oauth/",
+        "teaser":null},{
+        "title": "Spring Interceptor",
+        "excerpt":"Spring Interceptor 스프링의 인터셉터란 어떠한 URI를 호출했을 때 해당 요청의 컨트롤러가 처리되기 전 또는 후에 작업을 하기 위해서 사용 addWebRequestInterceptor vs addInterceptor Filter vs Interceptor? 둘의 가장 큰 차이점은 실행되는 위치! 위 사진과 같이 Fi는 DispatcherServlet이 실행되기 전,후에 실행되며 Interceptor는 DispatcherServlet에서 핸들러 컨트롤러로 가기 전에 동작한다. Fitler는 J2EE 표준 스펙에...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/spring-interceptor/",
         "teaser":null}]
