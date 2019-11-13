@@ -143,4 +143,9 @@ var store = [{
         "excerpt":"Spring Interceptor 스프링의 인터셉터란 어떠한 URI를 호출했을 때 해당 요청의 컨트롤러가 처리되기 전 또는 후에 작업을 하기 위해서 사용 addWebRequestInterceptor vs addInterceptor Filter vs Interceptor? 둘의 가장 큰 차이점은 실행되는 위치! 위 사진과 같이 Fi는 DispatcherServlet이 실행되기 전,후에 실행되며 Interceptor는 DispatcherServlet에서 핸들러 컨트롤러로 가기 전에 동작한다. Fitler는 J2EE 표준 스펙에...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/spring-interceptor/",
+        "teaser":null},{
+        "title": "Factory Pattern",
+        "excerpt":"팩토리 패턴 아래 예시에 사용된 코드는 https://github.com/vsh123/springboot-test/tree/feat/factory-pattern 에서 확인 가능합니다. 느슨한 결함을 이용하는 객체지향 패턴 비즈니스 로직에 new를 사용하여 객체를 만드는 것은 좋은 것이 아니다 Duck duck = new MallarDuck(); /* 인터페이스를 사용해서 코드를 유연하게 만들었지만, 구상 클래스의 인스턴스를 만드는 new를 사용했기 때문에 나중에 코드를 수정해야할 가능성이 높아지며 유연성이 떨어진다...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/factory-pattern/",
         "teaser":null}]
