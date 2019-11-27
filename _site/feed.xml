@@ -1,4 +1,322 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-13T13:26:12+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">Factory Pattern</title><link href="http://localhost:4000/factory-pattern/" rel="alternate" type="text/html" title="Factory Pattern" /><published>2019-11-13T00:00:00+09:00</published><updated>2019-11-13T00:00:00+09:00</updated><id>http://localhost:4000/factory-pattern</id><content type="html" xml:base="http://localhost:4000/factory-pattern/">&lt;h1 id=&quot;팩토리-패턴&quot;&gt;팩토리 패턴&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-27T19:53:36+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Van</title><subtitle>ShakeVan's Blog</subtitle><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><entry><title type="html">Spring security</title><link href="http://localhost:4000/spring-security/" rel="alternate" type="text/html" title="Spring security" /><published>2019-11-27T00:00:00+09:00</published><updated>2019-11-27T00:00:00+09:00</updated><id>http://localhost:4000/spring%20security</id><content type="html" xml:base="http://localhost:4000/spring-security/">&lt;h1 id=&quot;spring-security-시작하기&quot;&gt;Spring Security 시작하기&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://spring.io/guides/gs/securing-web/#scratch&quot;&gt;https://spring.io/guides/gs/securing-web/#scratch&lt;/a&gt;를 번역한 내용입니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;불안전한-웹-어플리케이션-생성&quot;&gt;불안전한 웹 어플리케이션 생성&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;스프링 시큐리티를 적용하기 전에 간단한 웹 어플리케이션을 생성해본다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;의존성-설정&quot;&gt;의존성 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;plugins {
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'van'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'junit:junit'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;기본-index-페이지&quot;&gt;기본 index 페이지&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/templates/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/xhtml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:th=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:sec=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org/thymeleaf-extras-springsecurity3&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Spring Security Example&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Welcome!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Click &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@{/hello}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;here&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt; to see a greeting.&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위의 페이지에서 Click을 누르면 &lt;code class=&quot;highlighter-rouge&quot;&gt;/hello&lt;/code&gt; 로 요청을 보내기 때문에 hello.html도 생성을 해준다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;hellohtml&quot;&gt;hello.html&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/templates/hello.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/xhtml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:th=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;xmlns:sec=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org/thymeleaf-extras-springsecurity3&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Hello World!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Hello world!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;다음으로 기본적인 로그인 페이지를 생성해 준다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;loginhtml&quot;&gt;login.html&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/templates/login.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/xhtml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:th=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;xmlns:sec=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org/thymeleaf-extras-springsecurity3&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Spring Security Example &lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${param.error}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            Invalid username and password.
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:if=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${param.logout}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            You have been logged out.
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:action=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@{/login}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&amp;lt;label&amp;gt;&lt;/span&gt; User Name : &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&amp;lt;label&amp;gt;&lt;/span&gt; Password: &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/label&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign In&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WebMvcConfigurer&lt;/code&gt; 를 상속받아 View페이지를 보여주는 ViewController를 다음과 같이 만든다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;mvcconfigjava&quot;&gt;MvcConfig.java&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/java/hello/MvcConfig.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;annotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;servlet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;annotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ViewControllerRegistry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;servlet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;annotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WebMvcConfigurer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Configuration&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MvcConfig&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebMvcConfigurer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Override&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addViewControllers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ViewControllerRegistry&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/home&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setViewName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setViewName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;index&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setViewName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;registry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setViewName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;registry.addViewController(경로).setViewName(파일 이름)&lt;/code&gt; 은 다음과 같은 역할을 한다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;addViewController()&lt;/code&gt; 에 등록된 경로로 요청이 올 시, &lt;code class=&quot;highlighter-rouge&quot;&gt;setViewName()&lt;/code&gt; 에 있는 파일을 리턴한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;마지막으로 Spring Boot를 실행시킬 main클래스를 생성한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;springsecurityapplicationjava&quot;&gt;SpringSecurityApplication.java&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/java/hello/SpringSecurityApplication.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;boot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;boot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;autoconfigure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringBootApplication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SpringSecurityApplication&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpringSecurityApplication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;스프링-시큐리티-적용하기&quot;&gt;스프링 시큐리티 적용하기&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이제 위에서 만든 어플리케이션에 스프링 시큐리티를 적용해보자.&lt;/li&gt;
+  &lt;li&gt;상황 : 위에서 만든 페이지 중에 &lt;code class=&quot;highlighter-rouge&quot;&gt;/home&lt;/code&gt; 을 요청 시 인증되지 않은 사용자는 접근 불가하게 설정&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;의존성-추가&quot;&gt;의존성 추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dependencies {
+	...
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;securityconfig-설정&quot;&gt;SecurityConfig 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/java/hello/WebSecurityConfig.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers(&quot;/&quot;, &quot;/home&quot;).permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage(&quot;/login&quot;)
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
+    }
+
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                .username(&quot;user&quot;)
+                .password(&quot;password&quot;)
+                .roles(&quot;USER&quot;)
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;User.withDefaultPasswordEncoder()는 deprecated되었지만 데모 테스트를 위해 사용하였습니다 :)&lt;/li&gt;
+  &lt;li&gt;위 코드에 설정된 내용은 다음과 같습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WebSecurityConfig&lt;/code&gt; 클래스에 Spring Security 설정을 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableWebSecurity&lt;/code&gt; 어노테이션을 추가해였습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;WebSecurityConfigurerAdapter&lt;/code&gt; 라는 추상클래스를 상속받고, 해당 메소드에서 필요한 부분을 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Override&lt;/code&gt; 하여 재정의 합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;configure(HttpSecurity http)&lt;/code&gt; 메소드에서는 인증을 할 부분과 하지 않을 부분을 &lt;code class=&quot;highlighter-rouge&quot;&gt;authorizeRequests()&lt;/code&gt;, 로그인 페이지를 &lt;code class=&quot;highlighter-rouge&quot;&gt;formLogin()&lt;/code&gt; , 로그아웃과 관련된 부분을 &lt;code class=&quot;highlighter-rouge&quot;&gt;logout()&lt;/code&gt; 으로 설정합니다.&lt;/li&gt;
+  &lt;li&gt;사용자가 성공적으로 로그인 한다면 이전에 요청한 페이지로 리다이렉트 됩니다.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;userDetailsService()&lt;/code&gt; 은 단일 사용자로 인 메모리 사용자 저장소를 설정합니다. 사용자의 정보는 &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;roles&lt;/code&gt; 를 통해 이름, 패스워드, 역할이 부여가 됩니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;로그아웃 버튼을 위해 hello.html에 다음과 같이 추가해줍니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;hellohtml-1&quot;&gt;hello.html&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources/templates/hello.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/1999/xhtml&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:th=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;xmlns:sec=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://www.thymeleaf.org/thymeleaf-extras-springsecurity3&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Hello World!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:inline=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Hello [[${#httpServletRequest.remoteUser}]]!&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;th:action=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@{/logout}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sign Out&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[[${#httpServletRequest.remoteUser}]]!을 통해 유저 정보를 제공합니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;실행-결과&quot;&gt;실행 결과&lt;/h2&gt;
+
+&lt;h3 id=&quot;get-&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET /&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/2019-11-27-spring security/1.png&quot; alt=&quot;1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;get-login&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET /login&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/2019-11-27-spring security/2.png&quot; alt=&quot;2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;로그인 성공 시&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/2019-11-27-spring security/3.png&quot; alt=&quot;3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;로그인 실패 시&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/2019-11-27-spring security/4.png&quot; alt=&quot;4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;get-hello&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;GET /hello&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/2019-11-27-spring security/5.png&quot; alt=&quot;5.png&quot; /&gt;&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><summary type="html">Spring Security 시작하기</summary></entry><entry><title type="html">11주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-11/" rel="alternate" type="text/html" title="11주 회고" /><published>2019-11-17T00:00:00+09:00</published><updated>2019-11-17T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-11</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-11/">&lt;blockquote&gt;
+  &lt;p&gt;기간 : 2019년 11월 11일(월) ~ 2019년 11월 17일(일)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;이번-주-목표&quot;&gt;이번 주 목표&lt;/h2&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;1일 1커밋&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Spring security 관련 블로그 1건 이상&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;나에게-칭찬해주고-싶은-점&quot;&gt;나에게 칭찬해주고 싶은 점&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;level 3의 모든 미션을 잘 마무리했다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;성장을-위한-조언&quot;&gt;성장을 위한 조언&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;꾸준함이 가장 중요하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;다음-주-목표&quot;&gt;다음 주 목표&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;1일 1커밋&lt;/li&gt;
+  &lt;li&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
+  &lt;li&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
+  &lt;li&gt;면접 준비 잘하기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;총평&quot;&gt;총평&lt;/h2&gt;
+&lt;p&gt;최근 면접과 관련된 생각을 하다보니 내가 가고 싶은 회사는 어떤 회사인지에 대한 고민이 많다
+해당 부분 잘 정리해 보자&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="회고" /><category term="회고" /><summary type="html">기간 : 2019년 11월 11일(월) ~ 2019년 11월 17일(일)</summary></entry><entry><title type="html">Factory Pattern</title><link href="http://localhost:4000/factory-pattern/" rel="alternate" type="text/html" title="Factory Pattern" /><published>2019-11-13T00:00:00+09:00</published><updated>2019-11-13T00:00:00+09:00</updated><id>http://localhost:4000/factory-pattern</id><content type="html" xml:base="http://localhost:4000/factory-pattern/">&lt;h1 id=&quot;팩토리-패턴&quot;&gt;팩토리 패턴&lt;/h1&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;아래 예시에 사용된 코드는 
 https://github.com/vsh123/springboot-test/tree/feat/factory-pattern
@@ -436,7 +754,40 @@ https://github.com/vsh123/springboot-test/tree/feat/factory-pattern
 &lt;ul&gt;
   &lt;li&gt;인터셉터는 위와 같이 로그인 확인 등 특정 api를 호출하기 전 인증, 인가의 목적으로 사용할 수 있다.&lt;/li&gt;
   &lt;li&gt;만약 Controller가 아닌 다른 Service에서 공통된 로직을 처리하고 싶으면 AOP를 적용하는 것을 고려해 볼 수 있다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><summary type="html">Spring Interceptor</summary></entry><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><summary type="html">Spring Interceptor</summary></entry><entry><title type="html">10주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10/" rel="alternate" type="text/html" title="10주 회고" /><published>2019-11-10T00:00:00+09:00</published><updated>2019-11-10T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10/">&lt;blockquote&gt;
+  &lt;p&gt;기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;이번-주-목표&quot;&gt;이번 주 목표&lt;/h2&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1일 1커밋&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;면접 준비 잘하기!&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;WoowaCrew OAuth&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;나에게-칭찬해주고-싶은-점&quot;&gt;나에게 칭찬해주고 싶은 점&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;나름 괜찮은 일주일을 보낸 것 같다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;성장을-위한-조언&quot;&gt;성장을 위한 조언&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;면접이 목표가 아닌, 성장을 목표로 공부하자&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;다음-주-목표&quot;&gt;다음 주 목표&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;1일 1커밋&lt;/li&gt;
+  &lt;li&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
+  &lt;li&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
+  &lt;li&gt;Spring security 관련 블로그 1건 이상&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;총평&quot;&gt;총평&lt;/h2&gt;
+&lt;p&gt;11월 12월 2달간 내가 가고 싶은 회사에 지원서를 넣을 예정이다.
+이를 윟해 지금까지 배웠던 내용, 내가 가고 싶은 회사의 지원동기 등을 잘 정리할 필요가 있어보인다.&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="회고" /><category term="회고" /><summary type="html">기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)</summary></entry><entry><title type="html">github oauth 동작 원리</title><link href="http://localhost:4000/web/github-oauth/" rel="alternate" type="text/html" title="github oauth 동작 원리" /><published>2019-11-05T00:00:00+09:00</published><updated>2019-11-05T00:00:00+09:00</updated><id>http://localhost:4000/web/github-oauth</id><content type="html" xml:base="http://localhost:4000/web/github-oauth/">&lt;h1 id=&quot;github-oauth2-동작-방식&quot;&gt;github OAuth2 동작 방식&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;/image/2019-11-05-github-oauth/1.png&quot; alt=&quot;connect&quot; /&gt;&lt;/p&gt;
 
@@ -630,158 +981,7 @@ https://github.com/vsh123/springboot-test/tree/feat/factory-pattern
 
 &lt;ul&gt;
   &lt;li&gt;클래스는 확장에 대해서는 열려 있어야 하지만 코드 변경에 대해서는 닫혀 있어야 한다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Design Pattern" /><category term="디자인 패턴" /><category term="Design Pattern" /><category term="Head First Design Pattern" /><category term="데코레이터 패턴" /><category term="Decorator Pattern" /><summary type="html">데코레이터 패턴?</summary></entry><entry><title type="html">RequestParam vs ModelAttribute vs RequestBody</title><link href="http://localhost:4000/spring/spring-boot-parameter-type/" rel="alternate" type="text/html" title="RequestParam vs ModelAttribute vs RequestBody" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/spring/spring-boot-parameter-type</id><content type="html" xml:base="http://localhost:4000/spring/spring-boot-parameter-type/">&lt;h2 id=&quot;requestparam-vs-modelattribute-vs-requestbody-어노테이션의-차이는-무엇일까&quot;&gt;RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;스프링 mvc를 구현해보려 하니 위 3개 어노테이션에 대해 혼란이 와서 정리를 해보려고 한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;requestparam&quot;&gt;RequestParam&lt;/h3&gt;
-
-&lt;p&gt;요청 파라미터를 매핑해주는 어노테이션이다.
-만약 요청이 &lt;code class=&quot;highlighter-rouge&quot;&gt;/requestParam?name=van&lt;/code&gt;이라고 하면 아래와 같이 코드를 짤 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/requestParam&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;requestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestParam&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;만약 Request의 value이름이 RequestParam이름과 다를 경우에는 다음과 같이 작성해주면 된다.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;requestParam?na=van&lt;/code&gt;이라는 요청일 시&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/requestParam&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//request의 파라미터 이름을 명시해준다.&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;requestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;na&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;마지막으로 파라미터의 이름과 request로 넘어온 파라미터의 이름이 동일하면 @RequestParam를 생략할 수 있다.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;/requestParam?name=van&lt;/code&gt;이라는 요청 시&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestController&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TestController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/requestParam&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;requestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위와 같이 작성이 가능하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;modelattribute&quot;&gt;ModelAttribute&lt;/h3&gt;
-
-&lt;p&gt;요청된 파라미터를 도메인 모델이나 DTO같은 모델로 매핑을 해준다.&lt;/p&gt;
-
-&lt;p&gt;아래와 같은 User 클래스가 있다고 가정해보자.&lt;/p&gt;
-
-&lt;h4 id=&quot;주의-객체를-만들-때-setter-or-전체-생성자를-선언을-해주어야-한다&quot;&gt;주의!! 객체를 만들 때 Setter or 전체 생성자를 선언을 해주어야 한다.&lt;/h4&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;User{&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;id='&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\''&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;, password='&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\''&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-                &lt;span class=&quot;sc&quot;&gt;'}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;그리고 &lt;code class=&quot;highlighter-rouge&quot;&gt;/modelAttribute?id=asdf&amp;amp;password=qer&lt;/code&gt;라는 요청이 있을 시 다음과 같이 작성이 가능하다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/modelAttribute&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;modelAttribute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@ModelAttribute&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;RequestParam과 마찬가지로 ModelAttribute 어노테이션도 생략이 가능하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;requestbody&quot;&gt;RequestBody&lt;/h3&gt;
-
-&lt;p&gt;http body를 객체로 매핑해주는 어노테이션이다.
-다음과 같은 테스트 코드가 있다고 가정해 보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RequestBodyTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;webTestClient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/requestBody&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;contentType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON_UTF8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON_UTF8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exchange&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;expectBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;consumeWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getResponseBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-                &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이때 다음과 같이 Controller를 작성 가능하다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nd&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/requestBody&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;requestBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Q. RequestBody는 APPLICATION_FORM_URLENCODED타입을 인식하지 못해요
-
-A. Spring에서는 APPLICATION_FORM_URLENCODED를 RequestBody로 인식하지 못한다고 합니다. 그 대신, @ModelAttribute를 사용하거나 어노테이션을 제거하면 정상적으로 매핑이 가능합니다.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Q. RequestParam과 ModelAttribute 어노테이션 없이 어떻게 매핑을 해주는 건가요?
-
-A. String, int, long 등의 단순한 primitive 타입이라면 RequestParam, 그게 아니라 모델인 경우에는 ModelAttribute로 판단한다고 합니다.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Spring" /><category term="Spring" /><category term="Controller" /><summary type="html">RequestParam vs ModelAttribute vs RequestBody 어노테이션의 차이는 무엇일까?</summary></entry><entry><title type="html">6주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/" rel="alternate" type="text/html" title="6주 회고" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/">&lt;blockquote&gt;
+&lt;/ul&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="Design Pattern" /><category term="디자인 패턴" /><category term="Design Pattern" /><category term="Head First Design Pattern" /><category term="데코레이터 패턴" /><category term="Decorator Pattern" /><summary type="html">데코레이터 패턴?</summary></entry><entry><title type="html">6주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/" rel="alternate" type="text/html" title="6주 회고" /><published>2019-10-14T00:00:00+09:00</published><updated>2019-10-14T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-6/">&lt;blockquote&gt;
   &lt;p&gt;기간 : 2019년 10월 07일(월) ~ 2019년 10월 13일(일)&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -815,125 +1015,4 @@ A. String, int, long 등의 단순한 primitive 타입이라면 RequestParam, �
 
 &lt;h2 id=&quot;총평&quot;&gt;총평&lt;/h2&gt;
 &lt;p&gt;이번 mvc 미션을 하면서 Servlet의 역할에 대해서 많은 이해가 되었다. 하지만 Spring mvc 프레임워크를 비슷하게 구현하려다 보니 Spring에 대한 이해가 많이 부족했다는 것을 알 수 있었다.
-이번 기회에 해당 내용에 대해서 공부 및 정리가 필요해 보인다.&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="회고" /><category term="회고" /><summary type="html">기간 : 2019년 10월 07일(월) ~ 2019년 10월 13일(일)</summary></entry><entry><title type="html">프록시 서버</title><link href="http://localhost:4000/etc/proxy/" rel="alternate" type="text/html" title="프록시 서버" /><published>2019-10-10T00:00:00+09:00</published><updated>2019-10-10T00:00:00+09:00</updated><id>http://localhost:4000/etc/proxy</id><content type="html" xml:base="http://localhost:4000/etc/proxy/">&lt;h3 id=&quot;프록시&quot;&gt;프록시&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;프록시 : 서버와 클라이언트 사이에 중계기로서 대리로 통신을 수행하는 것
-
-프록시 서버 : 프록시 기능을 하는 서버
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;프록시 패턴 : 컴퓨터 프로그래밍에서 소프트웨어 디자인 패턴의 하나&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;프록시 서버 : 클라이언트가 자신을 통해서 다른 네트워크 서비스에 간접적으로 접속할 수 있게 해 주는 컴퓨터나 응용 프로그램&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;공개 프록시 : 누구나 자유롭게 접속하여 사용할 수 있는 프록시 서버&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;리버스 프록시 : 컴퓨터 네트워크에서 클라이언트를 대신해서 한 대 이상의 서버로부터 자원을 추출하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;프록시 서버&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;프록시-서버의-특징&quot;&gt;프록시 서버의 특징&lt;/h3&gt;
-
-&lt;h4 id=&quot;보안&quot;&gt;보안&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;외부에서 내부 네트워크에 대한 직접적인 액세스를 차단&lt;/li&gt;
-  &lt;li&gt;내부 -&amp;gt; 외부로 나가는 모든 네트워크는 프록시 서버를 거치게 되며 이를 이용해 유해 사이트 등을 차단할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;속도&quot;&gt;속도&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;캐싱을 통한 속도 향상&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;서버-우회&quot;&gt;서버 우회&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;내부 네트워크의 주소가 아닌 프록시 서버의 주소를 타기 때문에 우회가 가능&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;일부-프록시-서버는-캐시를-이용해-요청된-정보들을-저장할-수-있다&quot;&gt;일부 프록시 서버는 캐시를 이용해 요청된 정보들을 저장할 수 있다&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;이렇게 캐시를 해두고 난 후에, 캐시 안에 있는 정보를 요구하는 요청에 대해서는 외부 요청없이 해당 값을 리턴 한다.
-    &lt;ul&gt;
-      &lt;li&gt;외부와의 연결을 하지 않아도 된다는 장점&lt;/li&gt;
-      &lt;li&gt;외부와의 트랙픽을 줄일 수 있다 -&amp;gt; 네트워크 병목 현상을 방지&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;외부-인터넷에서는-client의-정보를-알-수-없다&quot;&gt;외부 인터넷에서는 Client의 정보를 알 수 없다.&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;프록시 서버가 대신해서 요청해주기 때문에 외부에서는 프록시 서버의 정보가 나타나게 된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;foward-proxy-vs-reverse-proxy&quot;&gt;Foward Proxy vs Reverse Proxy&lt;/h3&gt;
-
-&lt;h4 id=&quot;포워드-프록시&quot;&gt;포워드 프록시&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Anonymity&lt;/li&gt;
-  &lt;li&gt;Caching&lt;/li&gt;
-  &lt;li&gt;Blocking unwanted sites&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;리버스-프록시&quot;&gt;리버스 프록시&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Load Balancing(로드 밸런싱)&lt;/li&gt;
-  &lt;li&gt;Caching&lt;/li&gt;
-  &lt;li&gt;Isolating internal traffic&lt;/li&gt;
-  &lt;li&gt;Logging&lt;/li&gt;
-  &lt;li&gt;Canary Deployment&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Q. 프록시 서버와 방화벽의 차이점?&lt;/p&gt;
-
-&lt;p&gt;A. 프록시와 방화벽 모두 특정 사이트의 접근을 막을 수 있지만, 방화벽은 본질적으로 차단 vs 프록시 서버는 웹사이트에 액세스 할 수 없는 경우 리다이렉션을하는 내부 매커니즘을 보유하고 있다. 또한 프록시와 방화벽의 큰 차이점은 외부에서 내부 네트워크 주소를 알 수 없다라는 점이다.&lt;/p&gt;
-
-&lt;p&gt;Q. 프록시 서버와 라우터의 차이&lt;/p&gt;
-
-&lt;p&gt;A. 작동되는 계층의 차이?&lt;/p&gt;
-
-&lt;p&gt;출처 : https://ko.wikipedia.org/wiki/프록시
-https://www.quora.com/What-is-the-difference-between-a-forward-proxy-and-a-router
-https://yourbusiness.azcentral.com/difference-between-firewall-proxy-server-20024.html&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="etc" /><category term="프록시 서버" /><category term="프록시" /><category term="proxy" /><category term="proxy server" /><summary type="html">프록시</summary></entry><entry><title type="html">5주 회고</title><link href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-5/" rel="alternate" type="text/html" title="5주 회고" /><published>2019-10-06T00:00:00+09:00</published><updated>2019-10-06T00:00:00+09:00</updated><id>http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-5</id><content type="html" xml:base="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-5/">&lt;blockquote&gt;
-  &lt;p&gt;기간 : 2019년 9월 30일(월) ~ 2019년 10월 06일(일)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;이번-주-목표&quot;&gt;이번 주 목표&lt;/h2&gt;
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1일 1커밋&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;스프링 부트 스타터 책 읽어보기&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;자바 8 in action 읽어보기&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;여태까지 내가 알고 있었던 내용, 배운 내용 정리하기&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;나에게-칭찬해주고-싶은-점&quot;&gt;나에게 칭찬해주고 싶은 점&lt;/h2&gt;
-
-&lt;h2 id=&quot;성장을-위한-조언&quot;&gt;성장을 위한 조언&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;기능의 구현을 마친 후에 최적의 설계를 고민해보면 좋을 것 같다.&lt;/li&gt;
-  &lt;li&gt;페어에게 너무 의지하는 사람이 되지 않도록 하자&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;다음-주-목표&quot;&gt;다음 주 목표&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;1일 1커밋&lt;/li&gt;
-  &lt;li&gt;HeadFirst DesignPattern 한 챕터 정리&lt;/li&gt;
-  &lt;li&gt;1일 HIIT 최소 한번이상 실시&lt;/li&gt;
-  &lt;li&gt;발표 준비하기(forward proxy, reverse proxy)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;총평&quot;&gt;총평&lt;/h2&gt;
-&lt;p&gt;최근 들어 의욕이 많이 떨어진 것 같다.&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="회고" /><category term="회고" /><summary type="html">기간 : 2019년 9월 30일(월) ~ 2019년 10월 06일(일)</summary></entry></feed>
+이번 기회에 해당 내용에 대해서 공부 및 정리가 필요해 보인다.&lt;/p&gt;</content><author><name>Shake Van</name><email>vsh931025@gmail.com</email></author><category term="회고" /><category term="회고" /><summary type="html">기간 : 2019년 10월 07일(월) ~ 2019년 10월 13일(일)</summary></entry></feed>

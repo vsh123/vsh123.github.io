@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>github oauth 동작 원리 - Van</title>
-<meta name="description" content="github OAuth2 동작 방식">
+<!-- begin _includes/seo.html --><title>10주 회고 - Van</title>
+<meta name="description" content="  기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)">
 
 
   <meta name="author" content="Shake Van">
@@ -19,30 +19,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Van">
-<meta property="og:title" content="github oauth 동작 원리">
-<meta property="og:url" content="http://localhost:4000/web/github-oauth/">
+<meta property="og:title" content="10주 회고">
+<meta property="og:url" content="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10/">
 
 
-  <meta property="og:description" content="github OAuth2 동작 방식">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2019-11-05T00:00:00+09:00">
+  <meta property="og:description" content="  기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2019-11-10T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/web/github-oauth/">
+
+<link rel="canonical" href="http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10/">
 
 
 
@@ -268,15 +268,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="github oauth 동작 원리">
-    <meta itemprop="description" content="github OAuth2 동작 방식">
-    <meta itemprop="datePublished" content="November 05, 2019">
+    <meta itemprop="headline" content="10주 회고">
+    <meta itemprop="description" content="  기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)">
+    <meta itemprop="datePublished" content="November 10, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">github oauth 동작 원리
+          <h1 id="page-title" class="page__title" itemprop="headline">10주 회고
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -292,47 +292,40 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="github-oauth2-동작-방식">github OAuth2 동작 방식</h1>
+        <blockquote>
+  <p>기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일)</p>
+</blockquote>
 
-<p><img src="/image/2019-11-05-github-oauth/1.png" alt="connect" /></p>
+<h2 id="이번-주-목표">이번 주 목표</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />1일 1커밋</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />HeadFirst DesignPattern 한 챕터 정리</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />1일 HIIT 최소 한번이상 실시</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />면접 준비 잘하기!</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />WoowaCrew OAuth</li>
+</ul>
 
-<h2 id="1--2번-과정">1 ~ 2번 과정</h2>
+<h2 id="나에게-칭찬해주고-싶은-점">나에게 칭찬해주고 싶은 점</h2>
+<ul>
+  <li>나름 괜찮은 일주일을 보낸 것 같다.</li>
+</ul>
 
-<p><img src="/image/2019-11-05-github-oauth/2.png" alt="connect" /></p>
+<h2 id="성장을-위한-조언">성장을 위한 조언</h2>
+<ul>
+  <li>면접이 목표가 아닌, 성장을 목표로 공부하자</li>
+</ul>
 
-<p>(1) 사용자가 어플리케이션의 특정 URL로 접속한다. (/login)</p>
+<h2 id="다음-주-목표">다음 주 목표</h2>
+<ul>
+  <li>1일 1커밋</li>
+  <li>HeadFirst DesignPattern 한 챕터 정리</li>
+  <li>1일 HIIT 최소 한번이상 실시</li>
+  <li>Spring security 관련 블로그 1건 이상</li>
+</ul>
 
-<p>(2) 어플리케이션에서는 client_id를 포함하여 redirect URL을 전달한다.</p>
-
-<p>(https://github.com/login/oauth/authorize?client_id=‘<strong>client가 사전에 받은 id</strong>’)</p>
-
-<h2 id="3--4번-과정">3 ~ 4번 과정</h2>
-
-<p><img src="/image/2019-11-05-github-oauth/3.png" alt="connect" /></p>
-
-<p>(3) 사용자가 2번의 url로 이동하여 권한 허가를 한다</p>
-
-<p>(4) Github에서는 code와 함께 사용자에게 redirectURL을 전달한다</p>
-
-<p>(여기서 redirectURL은 client가 사전에 등록한 url이다)</p>
-
-<p><img src="/image/2019-11-05-github-oauth/4.png" alt="connect" /></p>
-
-<h2 id="5번-이후-과정">5번 이후 과정</h2>
-
-<p><img src="/image/2019-11-05-github-oauth/5.png" alt="connect" /></p>
-
-<p>(5) 사용자는 4번의 redirectURL로 code와 함께 어플리케이션에 전달한다.</p>
-
-<p>(6) 어플리케이션은 <strong>사용자에게 받은 code, 본인의 client_id, client_secret</strong>과 함께 github으로 access_token 발급 요청을 한다.</p>
-
-<p>(POST https://github.com/login/oauth/access_token)</p>
-
-<p>(7) Github은 어플리케이션에게 사용자의 access_token, token_type을 리턴한다</p>
-
-<p>(8,9) : 이후 access_token을 통해 왔다리 갔다리 한다.</p>
-
-<p>Github은 refresh_token이 별도로 존재하지 않고 access_token이 지속 유지되나봄?</p>
+<h2 id="총평">총평</h2>
+<p>11월 12월 2달간 내가 가고 싶은 회사에 지원서를 넣을 예정이다.
+이를 윟해 지금까지 배웠던 내용, 내가 가고 싶은 회사의 지원동기 등을 잘 정리할 필요가 있어보인다.</p>
 
         
       </section>
@@ -353,15 +346,7 @@
     
       
       
-      <a href="/tags/#github" class="page__taxonomy-item" rel="tag">github</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#oauth" class="page__taxonomy-item" rel="tag">oauth</a><span class="sep">, </span>
-    
-      
-      
-      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">web</a>
+      <a href="/tags/#%ED%9A%8C%EA%B3%A0" class="page__taxonomy-item" rel="tag">회고</a>
     
     </span>
   </p>
@@ -382,14 +367,14 @@
     
       
       
-      <a href="/categories/#web" class="page__taxonomy-item" rel="tag">Web</a>
+      <a href="/categories/#%ED%9A%8C%EA%B3%A0" class="page__taxonomy-item" rel="tag">회고</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-11-05T00:00:00+09:00">November 05, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-11-10T00:00:00+09:00">November 10, 2019</time></p>
         
       </footer>
 
@@ -398,22 +383,22 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=github+oauth+%EB%8F%99%EC%9E%91+%EC%9B%90%EB%A6%AC%20http%3A%2F%2Flocalhost%3A4000%2Fweb%2Fgithub-oauth%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=10%EC%A3%BC+%ED%9A%8C%EA%B3%A0%20http%3A%2F%2Flocalhost%3A4000%2F%25ED%259A%258C%25EA%25B3%25A0%2Fremind-10%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fweb%2Fgithub-oauth%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25ED%259A%258C%25EA%25B3%25A0%2Fremind-10%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fweb%2Fgithub-oauth%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25ED%259A%258C%25EA%25B3%25A0%2Fremind-10%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%ED%9A%8C%EA%B3%A0/remind-9/" class="pagination--pager" title="9주 회고
+      <a href="/web/github-oauth/" class="pagination--pager" title="github oauth 동작 원리
 ">Previous</a>
     
     
-      <a href="/%ED%9A%8C%EA%B3%A0/remind-10/" class="pagination--pager" title="10주 회고
+      <a href="/spring-interceptor/" class="pagination--pager" title="Spring Interceptor
 ">Next</a>
     
   </nav>

@@ -139,6 +139,11 @@ var store = [{
         "tags": ["web","oauth","github"],
         "url": "http://localhost:4000/web/github-oauth/",
         "teaser":null},{
+        "title": "10주 회고",
+        "excerpt":"기간 : 2019년 11월 04일(월) ~ 2019년 11월 10일(일) 이번 주 목표 1일 1커밋 HeadFirst DesignPattern 한 챕터 정리 1일 HIIT 최소 한번이상 실시 면접 준비 잘하기! WoowaCrew OAuth 나에게 칭찬해주고 싶은 점 나름 괜찮은 일주일을 보낸 것 같다. 성장을 위한 조언 면접이 목표가 아닌, 성장을 목표로 공부하자 다음 주...","categories": ["회고"],
+        "tags": ["회고"],
+        "url": "http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-10/",
+        "teaser":null},{
         "title": "Spring Interceptor",
         "excerpt":"Spring Interceptor 스프링의 인터셉터란 어떠한 URI를 호출했을 때 해당 요청의 컨트롤러가 처리되기 전 또는 후에 작업을 하기 위해서 사용 addWebRequestInterceptor vs addInterceptor Filter vs Interceptor? 둘의 가장 큰 차이점은 실행되는 위치! 위 사진과 같이 Fi는 DispatcherServlet이 실행되기 전,후에 실행되며 Interceptor는 DispatcherServlet에서 핸들러 컨트롤러로 가기 전에 동작한다. Fitler는 J2EE 표준 스펙에...","categories": [],
         "tags": [],
@@ -148,4 +153,14 @@ var store = [{
         "excerpt":"팩토리 패턴 아래 예시에 사용된 코드는 https://github.com/vsh123/springboot-test/tree/feat/factory-pattern 에서 확인 가능합니다. 느슨한 결함을 이용하는 객체지향 패턴 비즈니스 로직에 new를 사용하여 객체를 만드는 것은 좋은 것이 아니다 Duck duck = new MallarDuck(); /* 인터페이스를 사용해서 코드를 유연하게 만들었지만, 구상 클래스의 인스턴스를 만드는 new를 사용했기 때문에 나중에 코드를 수정해야할 가능성이 높아지며 유연성이 떨어진다...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/factory-pattern/",
+        "teaser":null},{
+        "title": "11주 회고",
+        "excerpt":"기간 : 2019년 11월 11일(월) ~ 2019년 11월 17일(일) 이번 주 목표 1일 1커밋 HeadFirst DesignPattern 한 챕터 정리 1일 HIIT 최소 한번이상 실시 Spring security 관련 블로그 1건 이상 나에게 칭찬해주고 싶은 점 level 3의 모든 미션을 잘 마무리했다. 성장을 위한 조언 꾸준함이 가장 중요하다. 다음 주 목표 1일...","categories": ["회고"],
+        "tags": ["회고"],
+        "url": "http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-11/",
+        "teaser":null},{
+        "title": "Spring security",
+        "excerpt":"Spring Security 시작하기 https://spring.io/guides/gs/securing-web/#scratch를 번역한 내용입니다. 불안전한 웹 어플리케이션 생성 스프링 시큐리티를 적용하기 전에 간단한 웹 어플리케이션을 생성해본다. 의존성 설정 build.gradle plugins { id 'org.springframework.boot' version '2.1.6.RELEASE' id 'io.spring.dependency-management' version '1.0.8.RELEASE' id 'java' } group 'van' version '1.0-SNAPSHOT' sourceCompatibility = 1.8 repositories { mavenCentral() } dependencies { implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' implementation...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/spring-security/",
         "teaser":null}]
