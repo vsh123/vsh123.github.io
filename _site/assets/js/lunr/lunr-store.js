@@ -163,4 +163,9 @@ var store = [{
         "excerpt":"Spring Security 시작하기 https://spring.io/guides/gs/securing-web/#scratch를 번역한 내용입니다. 불안전한 웹 어플리케이션 생성 스프링 시큐리티를 적용하기 전에 간단한 웹 어플리케이션을 생성해본다. 의존성 설정 build.gradle plugins { id 'org.springframework.boot' version '2.1.6.RELEASE' id 'io.spring.dependency-management' version '1.0.8.RELEASE' id 'java' } group 'van' version '1.0-SNAPSHOT' sourceCompatibility = 1.8 repositories { mavenCentral() } dependencies { implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' implementation...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/spring-security/",
+        "teaser":null},{
+        "title": "13주 회고",
+        "excerpt":"기간 : 2019년 11월 18일(월) ~ 2019년 12월 01일(일) 2주전 주 목표 1일 1커밋 HeadFirst DesignPattern 한 챕터 정리 1일 HIIT 최소 한번이상 실시 면접 준비 잘하기 나에게 칭찬해주고 싶은 점 합격했다.^^ 뿌듯 성장을 위한 조언 합격으로 인해 나태해 지지 말고 계속해서 공부하는 사람이 되자 다음 주 목표 1일 1커밋...","categories": ["회고"],
+        "tags": ["회고"],
+        "url": "http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-13/",
         "teaser":null}]
