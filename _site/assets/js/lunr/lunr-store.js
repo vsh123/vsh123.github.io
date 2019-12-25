@@ -168,4 +168,9 @@ var store = [{
         "excerpt":"기간 : 2019년 11월 18일(월) ~ 2019년 12월 01일(일) 2주전 주 목표 1일 1커밋 HeadFirst DesignPattern 한 챕터 정리 1일 HIIT 최소 한번이상 실시 면접 준비 잘하기 나에게 칭찬해주고 싶은 점 합격했다.^^ 뿌듯 성장을 위한 조언 합격으로 인해 나태해 지지 말고 계속해서 공부하는 사람이 되자 다음 주 목표 1일 1커밋...","categories": ["회고"],
         "tags": ["회고"],
         "url": "http://localhost:4000/%ED%9A%8C%EA%B3%A0/remind-13/",
+        "teaser":null},{
+        "title": "Spring Security Filter chain 확인하는 법",
+        "excerpt":"Spring Security는 다양한 Filter들이 기본으로 설정되어 있습니다. 이번 글에서는 기본적으로 어떤 Filter들이 존재하고 이를 어떻게 확인하는지 알아보도록 하겠습니다. 의존성 설정(build.gradle) implementation 'org.springframework.boot:spring-boot-starter-security' 이후 Spring Seucirty의 기본 configuration설정을 추가하겠습니다. SecurityConfig.java package van.security; import org.springframework.context.annotation.Configuration; import org.springframework.security.config.annotation.web.builders.HttpSecurity; import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity; import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter; @Configuration @EnableWebSecurity(debug = true) public class SecurityConfig extends WebSecurityConfigurerAdapter { @Override...","categories": ["spring security"],
+        "tags": ["security","spring","spring security"],
+        "url": "http://localhost:4000/spring%20security/Spring-Security-Filter-chain/",
         "teaser":null}]
