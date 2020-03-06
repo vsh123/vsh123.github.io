@@ -178,4 +178,9 @@ var store = [{
         "excerpt":"Vue Router Vue Router 뷰 라이브러리를 이용하여 싱글 페이지 애플리케이션을 구현할 때 사용하는 라이브러리 router.js //Lazy Loading const About = () =&gt; { return import(/_ webpackChunkName: \"about\" _/ \"./views/About.vue\"); }; export default new Router({ //mode: \"history\"를 사용하지 않으면 path에 #이 붙는다 //#이 붙는 모드를 default 모드인 hash mode라고 한다. mode:...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/Vue-Router/",
+        "teaser":null},{
+        "title": "Docker Mysql",
+        "excerpt":"도커 기본 설치 및 커멘드, mysql 실행 Docker 설치 https://hub.docker.com/search?q=&amp;type=edition&amp;offering=community&amp;sort=updated_at&amp;order=desc 기초 명령어 https://brunch.co.kr/@hopeless/10 현재 사용중인 프로세스(docker ps) / 정지된 프로세스(docker ps -a) 컨테이너 삭제(docker rm ) 시스템 사용 정보(docker system df) 이미지 정보(docekr image ls) 이미지 다운로드(docker pull ) 이미지 이름은 :을 통해 :로 구분됨 pull할 때 태그를 붙이지 않는다면...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/docker-mysql/",
         "teaser":null}]
