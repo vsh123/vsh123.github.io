@@ -183,4 +183,9 @@ var store = [{
         "excerpt":"도커 기본 설치 및 커멘드, mysql 실행 Docker 설치 https://hub.docker.com/search?q=&amp;type=edition&amp;offering=community&amp;sort=updated_at&amp;order=desc 기초 명령어 https://brunch.co.kr/@hopeless/10 현재 사용중인 프로세스(docker ps) / 정지된 프로세스(docker ps -a) 컨테이너 삭제(docker rm ) 시스템 사용 정보(docker system df) 이미지 정보(docekr image ls) 이미지 다운로드(docker pull ) 이미지 이름은 :을 통해 :로 구분됨 pull할 때 태그를 붙이지 않는다면...","categories": [],
         "tags": [],
         "url": "http://localhost:4000/docker-mysql/",
+        "teaser":null},{
+        "title": "Spring Jpa Test",
+        "excerpt":"Spring Data Jpa에서 Lazy Loading을 테스트해보자!! JPA(혹은 하이버네이트)를 공부하다보면 다음과 Lazy Loading과 Eager Loading에 대해서 들을 수 있습니다. 다음과 같이 연관관계를 가진 엔티티가 있다고 가정하겠습니다. Team @Entity public class Team { @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id; private String name; public Team() { } public Team(String name) { this.name...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/spring-jpa-test/",
         "teaser":null}]
