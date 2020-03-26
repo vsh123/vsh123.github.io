@@ -1,0 +1,295 @@
+# Pageable 인터페이스 분석하기
+
+Spring을 사용하면서 웬만한 데이터들은 대부분 페이징 처리를해서 뿌려 주고 있습니다.
+
+이번에는 Pageable을 사용하면서 가장 헷갈리는(아마 저만..?) offset, pageNumber의 차이 등을 정리해보려고 합니다.
+
+## Pageable
+
+[https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html)
+
+### 설명
+
+- 페이지네이션을 위한 인터페이스들을 정의하고 있습니다.
+
+    public interface Pageable {
+    
+    	/**
+    	 * Returns a {@link Pageable} instance representing no pagination setup.
+    	 *
+    	 * @return
+    	 */
+      //기본 인스턴스를 리턴합니다.
+    	static Pageable unpaged() {
+    		return Unpaged.INSTANCE;
+    	}
+    
+    	/**
+    	 * Returns whether the current {@link Pageable} contains pagination information.
+    	 *
+    	 * @return
+    	 */
+      //현재 페이지네이션 정보가 있는지(?)를 알려줍니다.
+    	default boolean isPaged() {
+    		return true;
+    	}
+    
+    	/**
+    	 * Returns whether the current {@link Pageable} does not contain pagination information.
+    	 *
+    	 * @return
+    	 */
+      //현재 페이지네이션 정보가 없으면 true
+    	default boolean isUnpaged() {
+    		return !isPaged();
+    	}
+    
+    	/**
+    	 * Returns the page to be returned.
+    	 *
+    	 * @return the page to be returned.
+    	 */
+      //PageNumber를 리턴합니다. Spring의 페이지 인덱스는 0부터 시작합니다.
+    	int getPageNumber();
+    
+    	/**
+    	 * Returns the number of items to be returned.
+    	 *
+    	 * @return the number of items of that page
+    	 */
+      //현재 페이지의 아이템 수량을 리턴합니다.
+    	int getPageSize();
+    
+    	/**
+    	 * Returns the offset to be taken according to the underlying page and page size.
+    	 *
+    	 * @return the offset to be taken
+    	 */
+      // offeset을 리턴합니다
+    	long getOffset();
+    
+    	/**
+    	 * Returns the sorting parameters.
+    	 *
+    	 * @return
+    	 */
+      //sort 정보를 리턴합니다.
+    	Sort getSort();
+    
+    	/**
+    	 * Returns the current {@link Sort} or the given one if the current one is unsorted.
+    	 *
+    	 * @param sort must not be {@literal null}.
+    	 * @return
+    	 */
+    	default Sort getSortOr(Sort sort) {
+    
+    		Assert.notNull(sort, "Fallback Sort must not be null!");
+    
+    		return getSort().isSorted() ? getSort() : sort;
+    	}
+    
+    	/**
+    	 * Returns the {@link Pageable} requesting the next {@link Page}.
+    	 *
+    	 * @return
+    	 */
+      //다음 페이지 정보를 리턴합니다.
+    	Pageable next();
+    
+    	/**
+    	 * Returns the previous {@link Pageable} or the first {@link Pageable} if the current one already is the first one.
+    	 *
+    	 * @return
+    	 */
+      //이전 페이지 정보를 리턴합니다. 만약 지금은 첫번째 페이지라면 첫번재 페이지를 리턴합니다.
+    	Pageable previousOrFirst();
+    
+    	/**
+    	 * Returns the {@link Pageable} requesting the first page.
+    	 *
+    	 * @return
+    	 */
+      //첫번째 페이지를 리턴합니다.
+    	Pageable first();
+    
+    	/**
+    	 * Returns whether there's a previous {@link Pageable} we can access from the current one. Will return
+    	 * {@literal false} in case the current {@link Pageable} already refers to the first page.
+    	 *
+    	 * @return
+    	 */
+      //이전 페이지 정보가 있는지 확인합니다.
+    	boolean hasPrevious();
+    
+    	/**
+    	 * Returns an {@link Optional} so that it can easily be mapped on.
+    	 *
+    	 * @return
+    	 */
+    	default Optional<Pageable> toOptional() {
+    		return isUnpaged() ? Optional.empty() : Optional.of(this);
+    	}
+    }
+
+## 구현체 살펴보기!!(AbstractPageRequest)
+
+    public abstract class AbstractPageRequest implements Pageable, Serializable {
+    
+    	private static final long serialVersionUID = 1232825578694716871L;
+    
+    	private final int page;
+    	private final int size;
+    
+    	/**
+    	 * Creates a new {@link AbstractPageRequest}. Pages are zero indexed, thus providing 0 for {@code page} will return
+    	 * the first page.
+    	 *
+    	 * @param page must not be less than zero.
+    	 * @param size must not be less than one.
+    	 */
+      //page가 0보다 작거나, 사이즈가 1보다 작으면 에러가 발생
+    	public AbstractPageRequest(int page, int size) {
+    
+    		if (page < 0) {
+    			throw new IllegalArgumentException("Page index must not be less than zero!");
+    		}
+    
+    		if (size < 1) {
+    			throw new IllegalArgumentException("Page size must not be less than one!");
+    		}
+    
+    		this.page = page;
+    		this.size = size;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#getPageSize()
+    	 */
+      //페이지 사이즈를 리턴 -> 여기서 말하는 페이지 사이즈는 한 페이지에 들어갈 사이즈를 이야기하는 듯
+    	public int getPageSize() {
+    		return size;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#getPageNumber()
+    	 */
+      //현재 페이지 번호를 리턴합니다.
+    	public int getPageNumber() {
+    		return page;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#getOffset()
+    	 */
+      //offset은 현재 페이지 * 사이즈
+    	public long getOffset() {
+    		return (long) page * (long) size;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#hasPrevious()
+    	 */
+    	public boolean hasPrevious() {
+    		return page > 0;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#previousOrFirst()
+    	 */
+    	public Pageable previousOrFirst() {
+    		return hasPrevious() ? previous() : first();
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#next()
+    	 */
+    	public abstract Pageable next();
+    
+    	/**
+    	 * Returns the {@link Pageable} requesting the previous {@link Page}.
+    	 *
+    	 * @return
+    	 */
+    	public abstract Pageable previous();
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see org.springframework.data.domain.Pageable#first()
+    	 */
+    	public abstract Pageable first();
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see java.lang.Object#hashCode()
+    	 */
+    	@Override
+    	public int hashCode() {
+    
+    		final int prime = 31;
+    		int result = 1;
+    
+    		result = prime * result + page;
+    		result = prime * result + size;
+    
+    		return result;
+    	}
+    
+    	/*
+    	 * (non-Javadoc)
+    	 * @see java.lang.Object#equals(java.lang.Object)
+    	 */
+    	@Override
+    	public boolean equals(@Nullable Object obj) {
+    
+    		if (this == obj) {
+    			return true;
+    		}
+    
+    		if (obj == null || getClass() != obj.getClass()) {
+    			return false;
+    		}
+    
+    		AbstractPageRequest other = (AbstractPageRequest) obj;
+    		return this.page == other.page && this.size == other.size;
+    	}
+    }
+
+## 위를 이용해서 Page객체를 만들고 테스트 해보기
+
+    public class PageTest {
+        private List<Integer> datas = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+    
+        @Test
+        void 두번째_페이지를_만들어보세요() {
+            //5개씩 나눴을 때 3번째 페이지를 불러온다.
+            Pageable pageRequest = PageRequest.of(2, 5);
+    
+            int startIndex = (int) pageRequest.getOffset();
+            int endIndex = startIndex + 5;
+    
+            List<Integer> pageData = datas.subList(startIndex, endIndex);
+    
+            assertThat(pageData.get(0)).isEqualTo(11);
+            assertThat(pageData.size()).isEqualTo(5);
+        }
+    
+        @Test
+        void 마지막_페이지를_만들어보세요() {
+            Pageable pageable = PageRequest.of(4, 5);
+    
+            int dataLastIndex = datas.size();
+            int startIndex = Math.min((int) pageable.getOffset(), dataLastIndex);
+            int endIndex = Math.min(startIndex + 5, dataLastIndex);
+            List<Integer> pageData = datas.subList(startIndex, endIndex);
+    
+            assertThat(pageData.size()).isEqualTo(1);
+            assertThat(pageData.get(0)).isEqualTo(21);
+        }
+    }
